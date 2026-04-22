@@ -100,7 +100,7 @@ export function Demo() {
             >
               <Image
                 src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
-                alt="Profile Picture of Ava Monroe"
+                alt="Profile Picture of Jefferson Kidd"
                 size="medium"
                 style={{ borderRadius: "100%" }}
               />
@@ -118,7 +118,7 @@ export function Demo() {
 
                 <TextContentTitle
                   align="center"
-                  title="Ava Monroe"
+                  title="Jefferson Kidd"
                   subtitle="Creative strategist sharing launch notes, studio workflows, and simple systems for independent brands."
                 />
               </Flex>
@@ -189,8 +189,8 @@ export function Demo() {
                       container
                       style={{ minWidth: 0, flex: 1 }}
                     >
-                      <TextStrong>{link.title}</TextStrong>
-                      <TextSmall>{link.description}</TextSmall>
+                      <TextStrong lineClamp={2}> {link.title}</TextStrong>
+                      <TextSmall lineClamp={2}>{link.description}</TextSmall>
                     </Flex>
 
                     <Flex style={{ flexShrink: 0 }}>
