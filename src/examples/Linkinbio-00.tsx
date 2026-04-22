@@ -101,7 +101,7 @@ export function Demo() {
               <Image
                 src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
                 alt="Profile Picture of Jefferson Kidd"
-                size="medium"
+                size="large"
                 style={{ borderRadius: "100%" }}
               />
 

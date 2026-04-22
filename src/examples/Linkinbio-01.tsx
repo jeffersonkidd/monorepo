@@ -67,12 +67,12 @@ export function LinkInBio() {
   return (
 
     <Section padding={sectionPadding} variant="neutral">
-          <Flex
-    direction="column"
-    alignPrimary="center"
-    alignSecondary="center"
-    gap="1200"
-    container
+    <Flex
+      direction="column"
+      alignPrimary="center"
+      alignSecondary="center"
+      gap="1200"
+      container
     >
       <Flex
         direction="column"
@@ -105,7 +105,7 @@ export function LinkInBio() {
             >
               <Image
                 src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
-                alt="Profile Picture of Ava Monroe"
+                alt="Profile Picture of Jefferson Kidd"
                 size="medium"
                 style={{ borderRadius: "100%" }}
               />
@@ -123,7 +123,7 @@ export function LinkInBio() {
 
                 <TextContentTitle
                   align="center"
-                  title="Ava Monroe"
+                  title="Jefferson Kidd"
                   subtitle="Creative strategist sharing launch notes, studio workflows, and simple systems for independent brands."
                 />
               </Flex>

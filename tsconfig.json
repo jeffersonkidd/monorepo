@@ -29,5 +29,5 @@
       "utils": ["./ui/utils"]
     }
   },
-  "include": [".storybook/**/*.ts", ".storybook/**/*.tsx", "src", "scripts"]
+  "include": [".storybook/**/*.ts", ".storybook/**/*.tsx", "src", "scripts", "indexx.tsx"]
 }

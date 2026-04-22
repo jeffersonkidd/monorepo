@@ -155,4 +155,5 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--text-truncate-line-clamp, 9999);
   line-clamp: var(--text-truncate-line-clamp, 9999);
+  white-space: normal;
 }

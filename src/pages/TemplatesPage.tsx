@@ -1,4 +1,4 @@
-import { LinkInBio } from "../examples/Linkinbio-02";
+import { LinkInBio } from "../../..link-in-bio/";
 
 function DemosPage() {
   return <LinkInBio />;
