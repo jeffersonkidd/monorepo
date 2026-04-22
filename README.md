@@ -1,4 +1,4 @@
-# MonoFly SDS Monorepo
+# SDS Monorepo
 
 MonoFly SDS is a **design-system monorepo** focused on bridging design and implementation with:
 
