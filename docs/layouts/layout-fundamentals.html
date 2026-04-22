@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Layout Fundamentals</title>
+    <link rel="stylesheet" href="./styles/layout-examples.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="section section--surface">
+        <div class="container stack">
+          <h1>Layout Fundamentals</h1>
+          <p class="text-subtle">Simple, practical examples for section, flex row, flex item sizing, and grid.</p>
+
+          <section class="card stack">
+            <h1>1) Semantic header inside a section</h1>
+            <header class="row row--between">
+              <strong>Product dashboard</strong>
+              <button class="btn">Create report</button>
+            </header>
+          </section>
+
+          <section class="card stack">
+            <h2>2) Flex layout with major/minor columns</h2>
+            <div class="row row--collapse">
+              <article class="card" style="flex: 2">
+                <strong>Major column</strong>
+                <p class="text-subtle">Use for charts, narrative, and the primary action flow.</p>
+              </article>
+              <aside class="card" style="flex: 1">
+                <strong>Minor rail</strong>
+                <p class="text-subtle">Use for filters, context, and supporting actions.</p>
+              </aside>
+            </div>
+          </section>
+
+          <section class="card stack">
+            <h2>3) Responsive grid fundamentals</h2>
+            <div class="grid">
+              <div class="kpi"><span class="tag">Pipeline</span><h3>98%</h3></div>
+              <div class="kpi"><span class="tag">Release quality</span><h3>96%</h3></div>
+              <div class="kpi"><span class="tag">Incidents</span><h3>-22%</h3></div>
+              <div class="kpi"><span class="tag">Customer impact</span><h3>Low</h3></div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

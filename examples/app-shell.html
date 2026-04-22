@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDS Template: App Shell</title>
+    <link rel="stylesheet" href="../src/styles/reset.css" />
+    <link rel="stylesheet" href="../src/styles/theme.css" />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        background: var(--color-bg-default, #f6f8fa);
+        color: var(--color-text-primary, #101828);
+      }
+      .app-shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+      .top-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid #e4e7ec;
+        background: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+      }
+      .top-nav__actions,
+      .rail-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .layout {
+        width: min(1400px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr) 280px;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .panel {
+        background: #fff;
+        border: 1px solid #e4e7ec;
+        border-radius: 0.75rem;
+        padding: 1rem;
+      }
+      .nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-list li {
+        margin-bottom: 0.5rem;
+      }
+      .nav-list a {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        color: inherit;
+        text-decoration: none;
+      }
+      .nav-list a[aria-current="page"] {
+        background: #eef4ff;
+        color: #1d4ed8;
+      }
+      .content-grid {
+        display: grid;
+        gap: 1rem;
+      }
+      .stats {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      .kpi h3 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      .kpi p {
+        margin: 0.25rem 0 0;
+        color: #667085;
+      }
+      .footer {
+        border-top: 1px solid #e4e7ec;
+        background: #fff;
+        padding: 0.75rem 1.25rem;
+      }
+      button {
+        border: 1px solid #d0d5dd;
+        background: #fff;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+      }
+      .primary {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+        color: #fff;
+      }
+      @media (max-width: 1100px) {
+        .layout {
+          grid-template-columns: 220px minmax(0, 1fr);
+        }
+        aside.utility-rail {
+          display: none;
+        }
+      }
+      @media (max-width: 780px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        nav.main-nav {
+          order: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <strong>Monofly Platform</strong>
+        <div class="top-nav__actions" aria-label="Top navigation actions">
+          <button>Search</button>
+          <button>Help</button>
+          <button class="primary">New Workflow</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <nav class="main-nav panel" aria-label="Main navigation">
+          <h2>Workspace</h2>
+          <ul class="nav-list">
+            <li><a href="#" aria-current="page">Overview</a></li>
+            <li><a href="#">Automations</a></li>
+            <li><a href="#">Assets</a></li>
+            <li><a href="#">Invoices</a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+        </nav>
+
+        <main class="content-grid" id="content" aria-label="Main content">
+          <section class="stats">
+            <article class="panel kpi">
+              <h3>42</h3>
+              <p>Active workflows</p>
+            </article>
+            <article class="panel kpi">
+              <h3>98.2%</h3>
+              <p>Delivery success</p>
+            </article>
+            <article class="panel kpi">
+              <h3>11h</h3>
+              <p>Time saved this week</p>
+            </article>
+          </section>
+
+          <section class="panel">
+            <h2>Insights</h2>
+            <p>
+              Use this zone for charts, tables, and workflow details. Keep content width under
+              ~980px for readability.
+            </p>
+          </section>
+        </main>
+
+        <aside class="utility-rail panel" aria-label="Utility rail">
+          <h2>Actions</h2>
+          <div class="rail-actions">
+            <button>Invite</button>
+            <button>Export</button>
+          </div>
+          <h3>Next step</h3>
+          <p>Create a reusable report and share it with stakeholders.</p>
+        </aside>
+      </div>
+
+      <footer class="footer">© 2026 Monofly · App shell template</footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+.logo {
+  --border-radius: var(--sds-size-radius-100);
+  border-radius: var(--border-radius);
+  position: relative;
+  color: inherit;
+
+  &[data-focus-visible] {
+    outline: none;
+    --offset: calc(var(--sds-size-stroke-border) * 6);
+    &::before {
+      content: "";
+      border-radius: calc(var(--border-radius) + var(--offset));
+      bottom: calc(-1 * var(--offset));
+      box-shadow: 0 0 0 var(--global-focus-ring-size)
+        var(--global-focus-ring-color);
+      left: calc(-1 * var(--offset));
+      position: absolute;
+      right: calc(-1 * var(--offset));
+      top: calc(-1 * var(--offset));
+    }
+  }
+
+  > svg {
+    color: var(--sds-color-icon-default);
+    height: auto;
+    width: var(--sds-size-icon-medium);
+  }
+}
+
+.logo__text {
+  font-family: var(--sds-typography-family-sans);
+  font-size: 21px;
+  font-weight: 500;
+  color: inherit;
+}

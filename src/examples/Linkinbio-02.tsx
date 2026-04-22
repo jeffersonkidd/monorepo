@@ -1,0 +1,275 @@
+import { Card } from "compositions";
+import {
+  IconArrowRight,
+  IconGithub,
+  IconInstagram,
+  IconLinkedin,
+  IconYoutube,
+} from "icons";
+import { useMediaQuery } from "hooks";
+import { Flex, FlexItem, Section } from "layout";
+import {
+  Button,
+  ButtonGroup,
+  Image,
+  Tag,
+  TagButton,
+  TextStrong,
+  TextContentTitle,
+  TextContentHeading,
+  TextHeading,
+  TextSmall,
+  TextTitlePage,
+  TextSubtitle,
+} from "primitives";
+
+const featuredLinks = [
+  {
+    title: "Book a brand shoot",
+    description: "Creative direction, wardrobe notes, and next-week openings.",
+    href: "#book-a-brand-shoot",
+  },
+  {
+    title: "Shop my creator toolkit",
+    description: "Cameras, lighting, presets, and the gear I use every day.",
+    href: "#shop-my-creator-toolkit",
+  },
+  {
+    title: "Watch the weekly studio vlog",
+    description: "Behind the scenes, launches, and what is working right now.",
+    href: "#watch-the-weekly-studio-vlog",
+  },
+  {
+    title: "Download the free launch checklist",
+    description: "A simple planning template for your next drop or campaign.",
+    href: "#download-the-free-launch-checklist",
+  },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: "#instagram", icon: <IconInstagram /> },
+  { label: "YouTube", href: "#youtube", icon: <IconYoutube /> },
+  { label: "LinkedIn", href: "#linkedin", icon: <IconLinkedin /> },
+  { label: "GitHub", href: "#github", icon: <IconGithub /> },
+];
+
+const quickStats = [
+  { label: "Subscribers", value: "42k" },
+  { label: "Weekly reach", value: "180k" },
+  { label: "Brand partners", value: "28" },
+];
+
+export function LinkInBio() {
+  const { isMobile } = useMediaQuery();
+  const sectionPadding = isMobile ? "600" : "1600";
+  const pageGap = isMobile ? "800" : "1200";
+
+  return (
+
+    <Section padding={sectionPadding} variant="neutral">
+  <Flex
+    direction="column"
+    alignPrimary="center"
+    alignSecondary="center"
+    gap="1200"
+    container
+    >
+      <Flex
+        direction="column"
+        gap="1200"
+        alignSecondary="center"
+        style={{ minWidth: 0 }}
+      >
+        {/* Profile */}
+        <Flex
+          direction="row"
+          gap={pageGap}
+          alignPrimary="stretch"
+          alignSecondary="center"
+          container
+          style={{ minWidth: 0 }}
+        >
+          <Card
+            align="start"
+            direction="vertical"
+            variant="stroke"
+            padding="600"
+            style={{ minWidth: 0 }}
+          >
+            <Flex
+              direction="column"
+              alignPrimary="center"
+              alignSecondary="center"
+              gap="800"
+              style={{ minWidth: 0 }}
+            >
+              <Image
+              src="https://media.gettyimages.com/id/93015397/photo/author-and-poet-chinua-achebe-poses-at-a-portrait-session-for-the-new-yorker-magazine-in.jpg?s=612x612&w=0&k=20&c=J_4rznU4jiEna5pf4HF7gIMT2EI4qivJuKEezEgpFPE=" 
+              alt="Author and poet Chinua Achebe poses at a portrait session for The New Yorker Magazine in Annandale On Hudson, NY on April 22, 2008"
+              size="large"
+
+              />
+
+              <Flex
+                direction="column"
+                gap="600"
+                alignPrimary="center"
+                alignSecondary="center"
+                style={{ minWidth: 0 }}
+              >
+                <Tag scheme="positive" variant="primary">
+                  🤑 New course live
+                </Tag>
+                <Tag scheme="danger" variant="primary">
+                  😡 I don't eat @$$ on OnlyFans!!!
+                </Tag>
+
+                <TextContentTitle
+                  align="center"
+                  title="Monofly UI"
+                  subtitle="Creative strategist sharing launch notes, studio workflows, and simple systems for independent brands."
+                />
+              </Flex>
+            </Flex>
+
+            {/* Stats */}
+            <Flex type="third" direction="row" gap="600" >
+   
+              {quickStats.map((stat) => (
+                <FlexItem key={stat.label} size="minor" style={{ minWidth: 0 }}>
+                  <Card variant="stroke" padding="600">
+                    <Flex
+                      direction="column"
+                      alignPrimary="center"
+                      alignSecondary="center"
+                      gap="100"
+                    
+                      container
+                    >
+                      <TextSmall >{stat.label}</TextSmall>
+                      <TextHeading>{stat.value}</TextHeading>
+                    </Flex>
+                  </Card>
+                </FlexItem>
+              ))}
+            </Flex>
+          </Card>
+        </Flex>
+
+        {/* Featured Links */}
+        <Flex
+          direction="row"
+          gap={pageGap}
+          alignPrimary="stretch"
+          alignSecondary="stretch"
+          container
+          type="auto"
+          content=""
+          
+        >
+          <Card variant="stroke" padding="800" direction="vertical" style={{ minWidth: 0 }}>
+            <Flex
+              direction="column"
+              gap="600"
+              alignSecondary="stretch"
+              container
+              type="auto"
+              style={{ minWidth: 0 }}
+            >
+              <TextContentHeading
+                heading="Featured links"
+                subheading="Your favorite stuff in one place"
+                align="start"
+              />
+
+              <ButtonGroup
+                align="stack"
+                style={{ gap: "var(--sds-size-space-400)" }} // ✅ fixed
+              >
+                {featuredLinks.map((link) => (
+                  <Button
+                    key={link.title}
+                    href={link.href}
+                    variant="neutral"
+                    style={{ minWidth: 0 }}
+                  >
+                    <Flex
+                      direction="column"
+                      alignPrimary="start"
+                      alignSecondary="stretch"
+                      wrap
+                      container
+                      style={{ minWidth: 0, flex: 1 }}
+                    >
+                      <TextStrong>{link.title}</TextStrong>
+                      <TextSmall>{link.description}</TextSmall>
+                    </Flex>
+
+                    <Flex style={{ flexShrink: 0 }}>
+                      <IconArrowRight size="32" />
+                    </Flex>
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Flex>
+          </Card>
+        </Flex>
+
+        {/* Email CTA */}
+        <Flex
+          direction="row"
+          gap={pageGap}
+          alignPrimary="stretch"
+          alignSecondary="center"
+          container
+          style={{ minWidth: 0 }}
+        >
+          <Card variant="brand" padding="800" style={{ minWidth: 0 }}>
+            <Flex
+              direction="column"
+              alignPrimary="center"
+              alignSecondary={isMobile ? "center" : "stretch"}
+              gap="200"
+              style={{ minWidth: 0 }}
+            >
+              <TextTitlePage>Join the studio memo</TextTitlePage>
+              <TextSubtitle>
+                One practical email every Friday with new templates, campaign notes, and upcoming drops.
+              </TextSubtitle>
+            </Flex>
+
+            <Button
+              href="#join-the-studio-memo"
+              variant="neutral"
+              size="medium"
+              style={{ alignSelf: "flex-start" }}
+            >
+              Subscribe
+            </Button>
+          </Card>
+        </Flex>
+
+      <Flex direction="column" alignPrimary="center" alignSecondary="stretch"/>
+      </Flex>
+
+        {/* Social */}
+        <Flex direction="column" gap="300" alignSecondary="stretch">
+          <ButtonGroup align="justify">
+            {socialLinks.map((link) => (
+              <TagButton key={link.label} href={link.href}>
+                <Flex gap="100" alignSecondary="center">
+                  {link.icon}
+                  <span>{link.label}</span>
+                </Flex>
+              </TagButton>
+            ))}
+          </ButtonGroup>
+
+          <TextSmall>hello@monofly.studio</TextSmall>
+        </Flex>
+      </Flex>
+
+       </Section>
+     
+  );
+}

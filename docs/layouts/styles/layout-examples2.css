@@ -1,0 +1,155 @@
+:root {
+  --bg: #ffffff;
+  --bg-subtle: #f8f9fb;
+  --bg-neutral: #f2f4f7;
+  --bg-brand: #1b4dff;
+  --text: #111827;
+  --text-on-brand: #f8fbff;
+  --muted: #475467;
+  --border: #d0d5dd;
+  --card-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg-subtle);
+  line-height: 1.5;
+}
+
+.layout-shell {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(1120px, calc(100vw - 2rem));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 2.5rem 0;
+}
+
+.section.subtle {
+  background: var(--bg-subtle);
+}
+
+.section.neutral {
+  background: var(--bg-neutral);
+}
+
+.section.brand {
+  background: var(--bg-brand);
+  color: var(--text-on-brand);
+}
+
+.header,
+.footer {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.flex {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex.between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.flex-item-major {
+  flex: 2 1 420px;
+}
+
+.flex-item-minor {
+  flex: 1 1 240px;
+}
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+}
+
+.kpi {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.grid .featured {
+  grid-column: span 2;
+}
+
+.tag {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid currentColor;
+  font-size: 0.8rem;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.small-muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.footer-links li + li {
+  margin-top: 0.4rem;
+}
+
+a {
+  color: inherit;
+}
+
+@media (max-width: 800px) {
+  .grid .featured {
+    grid-column: span 1;
+  }
+}

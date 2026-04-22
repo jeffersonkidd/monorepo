@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Layout Professional Implementation</title>
+    <link rel="stylesheet" href="./styles/layout-examples.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header section">
+        <div class="container row row--between row--wrap">
+          <strong>Acme Ops</strong>
+          <nav class="nav" aria-label="Primary">
+            <a href="#">Pricing</a><a href="#">Solutions</a><a href="#">Docs</a><a href="#">Contact</a>
+          </nav>
+          <button class="btn">Get started</button>
+        </div>
+      </header>
+
+      <section class="section section--brand">
+        <div class="container stack">
+          <span class="tag">Q2 Executive Briefing</span>
+          <h1>Operational Excellence Platform</h1>
+          <p>Professional page shell using semantic header/footer, section hierarchy, flex KPI rows, and responsive insight grid.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="row row--wrap">
+            <div class="kpi" style="flex:1 1 240px"><div class="text-subtle">Uptime</div><h2>99.98%</h2></div>
+            <div class="kpi" style="flex:1 1 240px"><div class="text-subtle">Deployments</div><h2>347</h2></div>
+            <div class="kpi" style="flex:1 1 240px"><div class="text-subtle">P95 Latency</div><h2>188ms</h2></div>
+            <div class="kpi" style="flex:1 1 240px"><div class="text-subtle">MTTR</div><h2>23m</h2></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--surface">
+        <div class="container stack">
+          <h2>Insights Grid</h2>
+          <div class="grid">
+            <article class="card grid__featured">
+              <h3>Featured insight</h3>
+              <p class="text-subtle">Wider card for strategic narrative, trend context, and recommended actions.</p>
+            </article>
+            <article class="card"><h3>Customer retention</h3><p class="text-subtle">Weekly retention improved by 4.7% QoQ.</p></article>
+            <article class="card"><h3>Performance budget</h3><p class="text-subtle">All critical pages are below 180KB transfer.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer section">
+        <div class="container row row--between row--wrap">
+          <strong>Acme Ops</strong>
+          <nav class="nav" aria-label="Footer">
+            <a href="#">Privacy</a><a href="#">Security</a><a href="#">Status</a><a href="#">Support</a>
+          </nav>
+          <span class="text-subtle">© 2026 Acme Inc.</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

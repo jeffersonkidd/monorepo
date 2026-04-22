@@ -1,0 +1,49 @@
+/*
+ * src/styles/fonts.css
+ * Loads Inter and Roboto Mono from Google Fonts.
+ * Referenced by src/index.css — must be imported before theme.css.
+ *
+ * To add: copy this file to src/styles/fonts.css in monofly-sds.
+ * Already imported in ui/headers branch index.css.
+ * For main branch: add @import url("./styles/fonts.css"); to src/index.css.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap");
+
+/* =========================
+   FONT TOKENS
+   ========================= */
+
+:root {
+  /* Primary UI font */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Editorial / expressive serif */
+  --font-serif: "Noto Serif", Georgia, serif;
+
+  /* Code / system / technical UI */
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* =========================
+   BASE TYPOGRAPHY DEFAULTS
+   ========================= */
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+}
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}

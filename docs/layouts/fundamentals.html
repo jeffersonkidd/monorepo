@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Fundamentals Example</title>
+    <link rel="stylesheet" href="./styles/layout-examples2.css" />
+  </head>
+  <body>
+    <main class="layout-shell">
+      <section class="section subtle">
+        <div class="container flex column" style="gap: 1.25rem">
+          <h2>1) Section + Header pattern</h2>
+          <p class="small-muted">
+            Use sections to establish page rhythm and semantic grouping for the
+            user.
+          </p>
+          <header class="header section" style="padding: 1rem 0">
+            <div class="container flex between">
+              <strong>Product dashboard</strong>
+              <button>Create report</button>
+            </div>
+          </header>
+        </div>
+      </section>
+
+      <section class="section neutral">
+        <div class="container flex column" style="gap: 1.25rem">
+          <h2>2) Flex + Flex item sizing</h2>
+          <div class="panel">
+            <article class="card flex-item-major">
+              <h3>Major column</h3>
+              <p class="small-muted">
+                Main content area for charts, tables, and explanatory copy.
+              </p>
+            </article>
+            <aside class="card flex-item-minor">
+              <h3>Minor rail</h3>
+              <p class="small-muted">
+                Side rail for filters, quick actions, and supporting details.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section subtle">
+        <div class="container flex column" style="gap: 1.25rem">
+          <h2>3) Grid fundamentals</h2>
+          <div class="grid">
+            <article class="kpi"><strong>Pipeline health</strong><p>98%</p></article>
+            <article class="kpi"><strong>Release quality</strong><p>98%</p></article>
+            <article class="kpi"><strong>Incident volume</strong><p>98%</p></article>
+            <article class="kpi"><strong>Customer impact</strong><p>98%</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monofly — Personal Brand Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&family=Special+Elite&display=swap">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; color: #111; -webkit-font-smoothing: antialiased; }
+  button { font-family: inherit; cursor: pointer; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  #tweaks-panel {
+    display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    background: #fff; border: 1px solid #d9d9d9; border-radius: 10px;
+    padding: 18px 20px; width: 240px; box-shadow: 0 8px 32px rgba(0,0,0,.12);
+    font-family: 'Inter', sans-serif;
+  }
+  #tweaks-panel.visible { display: block; }
+  #tweaks-panel h4 { font: 600 13px/1 'Inter',sans-serif; color: #111; margin-bottom: 14px; }
+  .tweak-row { margin-bottom: 12px; }
+  .tweak-row label { display: block; font: 500 10px/1 'Inter',sans-serif; color: #757575; margin-bottom: 5px; text-transform: uppercase; letter-spacing: .05em; }
+  .tweak-row select { width: 100%; padding: 5px 8px; border: 1px solid #d9d9d9; border-radius: 5px; font: 400 12px/1 'Inter',sans-serif; color: #111; }
+  .tweak-check label { display: flex; align-items: center; gap: 7px; text-transform: none; letter-spacing: 0; font: 400 12px/1 'Inter',sans-serif; color: #444; cursor: pointer; }
+  .tweak-check input { accent-color: #2c2c2c; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div id="tweaks-panel">
+  <h4>Tweaks</h4>
+  <div class="tweak-row">
+    <label>Brand accent</label>
+    <select id="tweak-accent">
+      <option value="#1e1e1e">Mono Black</option>
+      <option value="#2563eb">Blue</option>
+      <option value="#7c3aed">Violet</option>
+      <option value="#dc2626">Red</option>
+      <option value="#059669">Green</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Nav style</label>
+    <select id="tweak-nav">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+  <div class="tweak-row tweak-check">
+    <label><input type="checkbox" id="tweak-compact"> Compact spacing</label>
+  </div>
+</div>
+
+<script type="text/babel">
+const { useState, useEffect, useCallback } = React;
+
+// ─── Tokens ───────────────────────────────────────────────────────
+const T = {
+  brand900: '#1e1e1e', brand800: '#2c2c2c', brand700: '#383838',
+  gray100: '#f5f5f5', gray200: '#e6e6e6', gray300: '#d9d9d9',
+  gray500: '#757575', gray400: '#b3b3b3', gray900: '#111111',
+  slate200: '#e3e3e3',
+  r200: '8px', r100: '6px', rFull: '999px',
+  shadow200: '0 1px 4px rgba(12,12,13,.06)',
+  shadowHover: '0 4px 20px rgba(12,12,13,.12)',
+};
+
+// ─── Tag ──────────────────────────────────────────────────────────
+function Tag({ children, variant = 'default' }) {
+  const c = variant === 'brand'
+    ? { bg: T.brand800, color: '#fff', border: T.brand800 }
+    : { bg: T.gray100, color: '#444', border: T.gray300 };
+  return (
+    <span style={{
+      font: '500 11px/1 Inter,sans-serif', padding: '3px 8px',
+      borderRadius: T.rFull, background: c.bg, color: c.color,
+      border: `1px solid ${c.border}`, display: 'inline-flex', alignItems: 'center', gap: '4px',
+    }}>{children}</span>
+  );
+}
+
+// ─── Nav ──────────────────────────────────────────────────────────
+function Nav({ page, onNavigate, navStyle, accent }) {
+  const dark = navStyle === 'dark';
+  const linkColor = (active) => dark
+    ? (active ? '#fff' : 'rgba(255,255,255,.55)')
+    : (active ? '#111' : T.gray500);
+  const linkBg = (active) => dark
+    ? (active ? 'rgba(255,255,255,.08)' : 'transparent')
+    : (active ? T.gray100 : 'transparent');
+  const linkBorder = (active) => dark
+    ? (active ? '1px solid rgba(255,255,255,.12)' : '1px solid transparent')
+    : (active ? `1px solid ${T.gray300}` : '1px solid transparent');
+
+  return (
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '0 32px', height: '56px',
+      background: dark ? 'rgba(17,17,17,.92)' : 'rgba(255,255,255,.88)',
+      backdropFilter: 'blur(8px)',
+      borderBottom: dark ? '1px solid rgba(255,255,255,.08)' : `1px solid ${T.gray200}`,
+    }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: '8px',
+        font: '700 15px/1 Inter,sans-serif', color: dark ? '#fff' : T.gray900,
+        cursor: 'pointer', letterSpacing: '-0.02em',
+      }} onClick={() => onNavigate('Home')}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        Monofly
+      </div>
+
+      <div style={{ display: 'flex', gap: '2px' }}>
+        {['Home','Work','Writing','About'].map(l => (
+          <div key={l} onClick={() => onNavigate(l)} style={{
+            font: `${page===l?'500':'400'} 13px/1 Inter,sans-serif`,
+            color: linkColor(page===l), padding: '6px 12px', borderRadius: T.r100,
+            cursor: 'pointer', background: linkBg(page===l), border: linkBorder(page===l),
+          }}>{l}</div>
+        ))}
+      </div>
+
+      <button onClick={() => onNavigate('About')} style={{
+        font: '600 13px/1 Inter,sans-serif', padding: '7px 14px', borderRadius: T.r200,
+        background: dark ? 'rgba(255,255,255,.1)' : accent,
+        color: '#fff',
+        border: dark ? '1px solid rgba(255,255,255,.15)' : `1px solid ${accent}`,
+      }}>Contact</button>
+    </div>
+  );
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────
+function Hero({ onNavigate, accent }) {
+  return (
+    <section style={{
+      minHeight: '100vh', display: 'flex', flexDirection: 'column',
+      justifyContent: 'center', padding: '80px 32px 64px',
+      maxWidth: '900px', margin: '0 auto',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
+        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: accent, animation: 'pulse 2s infinite' }}/>
+        <span style={{ font: '500 13px/1 Inter,sans-serif', color: T.gray500, letterSpacing: '.04em' }}>
+          Available for projects
+        </span>
+      </div>
+
+      <h1 style={{
+        font: '700 clamp(44px,8vw,72px)/1.05 Inter,sans-serif',
+        color: T.gray900, letterSpacing: '-0.04em', marginBottom: '20px', maxWidth: '700px',
+      }}>
+        Design systems<br/>for{' '}
+        <span style={{ color: T.gray500, fontWeight: 300 }}>personal brands.</span>
+      </h1>
+
+      <p style={{ font: '400 18px/1.6 Inter,sans-serif', color: '#444', maxWidth: '500px', marginBottom: '40px' }}>
+        Monofly is a clean, extensible boilerplate that gets you from zero
+        to a polished personal brand — tokens, components, and all.
+      </p>
+
+      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+        <button onClick={() => onNavigate('Work')} style={{
+          font: '600 15px/1 Inter,sans-serif', padding: '13px 24px', borderRadius: T.r200,
+          background: accent, color: '#fff', border: `1px solid ${accent}`,
+          display: 'flex', alignItems: 'center', gap: '8px',
+        }}>
+          View Work
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <button onClick={() => onNavigate('Writing')} style={{
+          font: '600 15px/1 Inter,sans-serif', padding: '13px 24px', borderRadius: T.r200,
+          background: 'transparent', color: T.gray900, border: `1px solid ${T.gray300}`,
+        }}>
+          Read Writing
+        </button>
+      </div>
+
+      <div style={{ display: 'flex', gap: '40px', marginTop: '72px', paddingTop: '32px', borderTop: `1px solid ${T.gray200}` }}>
+        {[['24+','Projects shipped'],['8k','Newsletter readers'],['3','Years building in public']].map(([v,l]) => (
+          <div key={l}>
+            <div style={{ font: '700 28px/1 Inter,sans-serif', color: T.gray900, letterSpacing: '-0.03em' }}>{v}</div>
+            <div style={{ font: '400 13px/1.4 Inter,sans-serif', color: T.gray500, marginTop: '5px' }}>{l}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Work ─────────────────────────────────────────────────────────
+const WORK = [
+  { title: 'Brand Identity System', cat: 'Design', year: '2024', desc: 'Full visual identity for a SaaS startup — logo, colors, type, and component library.', tag: 'Case Study' },
+  { title: 'Personal Blog Platform', cat: 'Development', year: '2024', desc: 'Built a minimal publishing platform with MDX, Next.js, and a custom design system.', tag: 'Open Source' },
+  { title: 'Portfolio Template', cat: 'Design + Dev', year: '2023', desc: 'A Monofly-powered portfolio template that creators can fork and launch in hours.', tag: 'Template' },
+  { title: 'Newsletter Growth Toolkit', cat: 'Strategy', year: '2023', desc: 'Comprehensive guide to growing a design-focused newsletter from 0 to 5k.', tag: 'Guide' },
+  { title: 'Icon Set v2', cat: 'Design', year: '2023', desc: 'Refreshed 300+ stroke icons to align with updated brand guidelines and weight system.', tag: 'Asset' },
+  { title: 'Component Playground', cat: 'Development', year: '2022', desc: 'Interactive component explorer for the Monofly SDS, built with Storybook + Figma.', tag: 'Tool' },
+];
+
+function WorkCard({ item }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: '#fff', border: `1px solid ${T.gray200}`, borderRadius: '10px',
+        padding: '20px', display: 'flex', flexDirection: 'column', gap: '10px',
+        cursor: 'pointer', transition: 'box-shadow .2s, transform .2s',
+        boxShadow: hovered ? T.shadowHover : T.shadow200,
+        transform: hovered ? 'translateY(-1px)' : 'none',
+      }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <Tag>{item.cat}</Tag>
+        <span style={{ font: '400 12px/1 Inter,sans-serif', color: T.gray400 }}>{item.year}</span>
+      </div>
+      <div style={{ font: '600 16px/1.3 Inter,sans-serif', color: T.gray900, letterSpacing: '-0.01em' }}>{item.title}</div>
+      <div style={{ font: '400 13px/1.5 Inter,sans-serif', color: T.gray500, flex: 1 }}>{item.desc}</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px', borderTop: `1px solid #f0f0f0` }}>
+        <Tag variant="brand">{item.tag}</Tag>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={T.gray400} strokeWidth="2" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  );
+}
+
+function WorkGrid() {
+  return (
+    <section style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 32px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px' }}>
+        <div>
+          <h2 style={{ font: '700 36px/1.1 Inter,sans-serif', color: T.gray900, letterSpacing: '-0.03em' }}>Work</h2>
+          <p style={{ font: '400 16px/1.5 Inter,sans-serif', color: T.gray500, marginTop: '8px' }}>Selected projects and case studies</p>
+        </div>
+        <span style={{ font: '500 13px/1 Inter,sans-serif', color: T.gray500 }}>{WORK.length} projects</span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '16px' }}>
+        {WORK.map(item => <WorkCard key={item.title} item={item} />)}
+      </div>
+    </section>
+  );
+}
+
+// ─── Writing ──────────────────────────────────────────────────────
+const WRITING = [
+  { title: 'Why every creator needs a design system', date: 'Mar 12, 2024', readTime: '6 min', desc: "A design system isn't just for big teams — it's the single best investment a solo creator can make." },
+  { title: 'Building in public: what I learned after 2 years', date: 'Feb 3, 2024', readTime: '8 min', desc: 'The honest truth about building in public — the audience it creates, and the pressure it brings.' },
+  { title: 'Monochromatic design: a masterclass in restraint', date: 'Jan 18, 2024', readTime: '5 min', desc: 'How stripping color from your palette forces better design decisions everywhere else.' },
+  { title: 'The minimal portfolio: say less, show more', date: 'Dec 9, 2023', readTime: '4 min', desc: "Most portfolios say too much. Here's a framework for editing your work down to what counts." },
+];
+
+function WritingGrid() {
+  return (
+    <section style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 32px' }}>
+      <h2 style={{ font: '700 36px/1.1 Inter,sans-serif', color: T.gray900, letterSpacing: '-0.03em' }}>Writing</h2>
+      <p style={{ font: '400 16px/1.5 Inter,sans-serif', color: T.gray500, marginTop: '8px', marginBottom: '32px' }}>Thoughts on design, development, and building in public</p>
+      {WRITING.map(item => (
+        <div key={item.title} style={{
+          display: 'flex', justifyContent: 'space-between', gap: '20px',
+          padding: '20px 0', borderBottom: `1px solid ${T.gray200}`, cursor: 'pointer',
+        }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ font: '600 16px/1.3 Inter,sans-serif', color: T.gray900, letterSpacing: '-0.01em', marginBottom: '6px' }}>{item.title}</div>
+            <div style={{ font: '400 13px/1.5 Inter,sans-serif', color: T.gray500 }}>{item.desc}</div>
+          </div>
+          <div style={{ flexShrink: 0, textAlign: 'right' }}>
+            <div style={{ font: '400 12px/1 Inter,sans-serif', color: T.gray400 }}>{item.date}</div>
+            <div style={{ font: '400 12px/1 Inter,sans-serif', color: T.gray400, marginTop: '5px' }}>{item.readTime} read</div>
+          </div>
+        </div>
+      ))}
+      <button style={{
+        marginTop: '24px', font: '500 13px/1 Inter,sans-serif', padding: '9px 16px',
+        borderRadius: T.r200, background: 'transparent', color: '#444',
+        border: `1px solid ${T.gray300}`, display: 'flex', alignItems: 'center', gap: '6px',
+      }}>
+        View all posts
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </section>
+  );
+}
+
+// ─── About ────────────────────────────────────────────────────────
+function About({ accent }) {
+  return (
+    <section style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 32px' }}>
+      <h2 style={{ font: '700 36px/1.1 Inter,sans-serif', color: T.gray900, letterSpacing: '-0.03em', marginBottom: '8px' }}>About</h2>
+      <p style={{ font: '400 16px/1.5 Inter,sans-serif', color: T.gray500, marginBottom: '48px' }}>Designer, developer, and builder in public.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
+        <div>
+          <div style={{
+            width: '100%', paddingBottom: '100%', background: T.gray100,
+            borderRadius: '10px', border: `1px solid ${T.gray200}`, position: 'relative', marginBottom: '20px',
+          }}>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={T.gray400} strokeWidth="1.5" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span style={{ font: '400 12px/1 Inter,sans-serif', color: T.gray400 }}>Photo placeholder</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            {['Twitter / X','GitHub','Dribbble','Newsletter'].map(s => (
+              <button key={s} style={{
+                font: '500 12px/1 Inter,sans-serif', padding: '7px 12px',
+                borderRadius: T.r100, background: T.gray100, color: '#444',
+                border: `1px solid ${T.gray300}`,
+              }}>{s}</button>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          {["I'm a designer and developer building tools for personal brand creators. My work sits at the intersection of visual design, front-end engineering, and content strategy.",
+            "Monofly is my personal design system — a boilerplate I use for every project. It's built to be forked, themed, and shipped in hours, not weeks.",
+            "I write about design systems, creative process, and the craft of building in public. 8k people read my newsletter each week."].map((p, i) => (
+            <p key={i} style={{ font: '400 16px/1.7 Inter,sans-serif', color: '#444' }}>{p}</p>
+          ))}
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ font: '600 11px/1 Inter,sans-serif', color: T.gray900, marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '.05em' }}>Get in touch</div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input type="email" placeholder="your@email.com" style={{
+                flex: 1, font: '400 14px/1 Inter,sans-serif', padding: '9px 12px',
+                border: `1px solid ${T.gray300}`, borderRadius: T.r100, outline: 'none', color: '#111',
+              }}/>
+              <button style={{
+                font: '600 13px/1 Inter,sans-serif', padding: '9px 16px', borderRadius: T.r100,
+                background: accent, color: '#fff', border: 'none',
+              }}>Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Footer ───────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer style={{ borderTop: `1px solid ${T.gray200}`, background: '#fff', padding: '48px 32px 32px' }}>
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '32px', flexWrap: 'wrap', marginBottom: '40px' }}>
+          <div style={{ maxWidth: '260px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span style={{ font: '700 15px/1 Inter,sans-serif', color: T.gray900 }}>Monofly</span>
+            </div>
+            <p style={{ font: '400 13px/1.6 Inter,sans-serif', color: T.gray500 }}>A minimal, extensible design system boilerplate for personal brand creators.</p>
+          </div>
+          <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap' }}>
+            {[['Navigate',['Home','Work','Writing','About']],['Connect',['Twitter / X','GitHub','Newsletter','RSS']]].map(([g, ls]) => (
+              <div key={g}>
+                <div style={{ font: '600 11px/1 Inter,sans-serif', color: T.gray900, letterSpacing: '.05em', textTransform: 'uppercase', marginBottom: '14px' }}>{g}</div>
+                {ls.map(l => <div key={l} style={{ font: '400 13px/1 Inter,sans-serif', color: T.gray500, marginBottom: '10px', cursor: 'pointer' }}>{l}</div>)}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '20px', borderTop: `1px solid ${T.gray200}`, flexWrap: 'wrap', gap: '12px' }}>
+          <span style={{ font: '400 12px/1 Inter,sans-serif', color: T.gray400 }}>© 2024 Monofly. Built with the Simple Design System.</span>
+          <span style={{ font: '400 12px/1 Inter,sans-serif', color: T.gray400 }}>Design tokens · React · Open source</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ─── App ──────────────────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#1e1e1e",
+  "navStyle": "light"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [page, setPage] = useState(() => localStorage.getItem('mf-page') || 'Home');
+  const [accent, setAccent] = useState(TWEAK_DEFAULTS.accent);
+  const [navStyle, setNavStyle] = useState(TWEAK_DEFAULTS.navStyle);
+
+  const navigate = useCallback((p) => {
+    setPage(p);
+    localStorage.setItem('mf-page', p);
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  useEffect(() => {
+    const panel = document.getElementById('tweaks-panel');
+    const accentSel = document.getElementById('tweak-accent');
+    const navSel = document.getElementById('tweak-nav');
+    const compactChk = document.getElementById('tweak-compact');
+
+    if (accentSel) accentSel.onchange = e => {
+      setAccent(e.target.value);
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accent: e.target.value } }, '*');
+    };
+    if (navSel) navSel.onchange = e => {
+      setNavStyle(e.target.value);
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { navStyle: e.target.value } }, '*');
+    };
+
+    const handler = (e) => {
+      if (e.data?.type === '__activate_edit_mode') panel.classList.add('visible');
+      if (e.data?.type === '__deactivate_edit_mode') panel.classList.remove('visible');
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  return (
+    <div style={{ minHeight: '100vh', paddingTop: '56px' }}>
+      <Nav page={page} onNavigate={navigate} navStyle={navStyle} accent={accent} />
+      {page === 'Home'    && <Hero onNavigate={navigate} accent={accent} />}
+      {page === 'Work'    && <WorkGrid />}
+      {page === 'Writing' && <WritingGrid />}
+      {page === 'About'   && <About accent={accent} />}
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

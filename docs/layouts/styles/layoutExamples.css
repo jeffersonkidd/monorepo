@@ -1,0 +1,45 @@
+.layout-examples {
+  width: min(1200px, calc(100vw - 3rem));
+}
+
+.layout-examples-shell {
+  min-height: 100vh;
+  background: var(--sds-color-background-default-default);
+}
+
+.layout-examples-container {
+  width: min(1120px, calc(100vw - 3rem));
+  margin: 0 auto;
+}
+
+.layout-example-card {
+  border: 1px solid var(--sds-color-border-default-default);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  background: var(--sds-color-background-default-default);
+  box-shadow: 0 8px 24px color-mix(in srgb, black 8%, transparent);
+}
+
+.layout-example-kpi {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: var(--sds-color-background-neutral-subtle);
+}
+
+.layout-example-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.layout-example-featured {
+  grid-column: span 2;
+}
+
+@media (max-width: 800px) {
+  .layout-example-featured {
+    grid-column: span 1;
+  }
+
+}
+

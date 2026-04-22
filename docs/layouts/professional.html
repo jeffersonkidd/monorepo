@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Layout Implementation Example</title>
+    <link rel="stylesheet" href="./styles/layout-examples2.css" />
+  </head>
+  <body>
+    <div class="layout-shell">
+      <header class="header section" style="padding: 1rem 0">
+        <div class="container flex between">
+          <strong>Acme Platform</strong>
+          <nav class="flex" aria-label="Primary">
+            <a href="#">Pricing</a>
+            <a href="#">Solutions</a>
+            <a href="#">Resources</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="section brand">
+        <div class="container flex column" style="gap: 1rem">
+          <span class="tag">Q2 Executive Briefing</span>
+          <h1>Operational Excellence Platform</h1>
+          <p>
+            Production-ready layout using semantic sections, responsive panel rows,
+            and grid composition.
+          </p>
+        </div>
+      </section>
+
+      <section class="section subtle">
+        <div class="container">
+          <div class="panel">
+            <article class="kpi flex-item-minor"><strong>Uptime</strong><h3>99.98%</h3></article>
+            <article class="kpi flex-item-minor"><strong>Deployments</strong><h3>347</h3></article>
+            <article class="kpi flex-item-minor"><strong>P95 Latency</strong><h3>188ms</h3></article>
+            <article class="kpi flex-item-minor"><strong>MTTR</strong><h3>23m</h3></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section neutral">
+        <div class="container flex column" style="gap: 1rem">
+          <h2>Insights Grid</h2>
+          <div class="grid">
+            <article class="card featured">
+              <h3>Featured insight</h3>
+              <p>
+                Wider card emphasizing trend analysis, narrative context, and
+                recommendations for leadership.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Customer retention</h3>
+              <p>Weekly cohort retention is up 4.7% quarter-over-quarter.</p>
+            </article>
+            <article class="card">
+              <h3>Performance budget</h3>
+              <p>All critical pages are under 180KB transfer.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer section" style="padding: 2rem 0">
+        <div class="container footer-links">
+          <section>
+            <strong>Company</strong>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </section>
+          <section>
+            <strong>Resources</strong>
+            <ul>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">Guides</a></li>
+              <li><a href="#">API status</a></li>
+            </ul>
+          </section>
+          <section>
+            <strong>Social</strong>
+            <ul>
+              <li><a href="#">X</a></li>
+              <li><a href="#">LinkedIn</a></li>
+              <li><a href="#">YouTube</a></li>
+            </ul>
+          </section>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
