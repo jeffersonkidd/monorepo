@@ -1,7 +1,9 @@
-import { Demo } from "./Linkinbio-00";
+export function Demo() {
+  return (
+    <> 
+    </>
 
-function DemoPage() {
-  return <Demo />;
+  )
 }
 
-export default DemoPage;
+

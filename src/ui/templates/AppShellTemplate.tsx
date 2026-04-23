@@ -1,4 +1,4 @@
-import { Footer, Header } from "compositions";
+import { Footer, Header, Sidebar } from "compositions";
 import { useMediaQuery } from "hooks";
 import { Flex, FlexItem, Section } from "layout";
 import {
@@ -19,42 +19,39 @@ export function AppShellTemplate() {
   const [activePage, setActivePage] = useState<NavItem>("Overview");
   const { isTabletDown } = useMediaQuery();
 
+  const sidebar = (
+    <Sidebar brand={<TextStrong>Workspace</TextStrong>}>
+      <Navigation direction="column">
+        {NAV_ITEMS.map((item) => (
+          <NavigationPill
+            key={item}
+            isSelected={activePage === item}
+            onPress={() => setActivePage(item)}
+          >
+            {item}
+          </NavigationPill>
+        ))}
+      </Navigation>
+    </Sidebar>
+  );
+
   return (
     <div className="template-page-root">
       <Header />
 
       <Section variant="neutral" padding="800">
         <Flex container gap="600" alignSecondary="start">
-          {/* Left rail — hidden on mobile */}
-          {!isTabletDown && (
-            <FlexItem size="minor">
-              <aside className="template-block template-rail">
-                <TextStrong>Workspace</TextStrong>
-                <Navigation direction="column">
-                  {NAV_ITEMS.map((item) => (
-                    <NavigationPill
-                      key={item}
-                      isSelected={activePage === item}
-                      onPress={() => setActivePage(item)}
-                    >
-                      {item}
-                    </NavigationPill>
-                  ))}
-                </Navigation>
-              </aside>
-            </FlexItem>
-          )}
+          {!isTabletDown && <FlexItem size="minor">{sidebar}</FlexItem>}
 
-          {/* Main + utility rail */}
           <FlexItem size="major">
             <Flex gap="400" wrap={isTabletDown} alignSecondary="start">
-              {/* Primary content */}
               <FlexItem size={isTabletDown ? "full" : "major"}>
                 <main
                   className="template-block"
                   aria-label="App shell primary content"
                 >
                   <Flex direction="column" gap="600">
+                    {isTabletDown && sidebar}
                     <Flex direction="column" gap="200">
                       <TextHeading>{activePage}</TextHeading>
                       <Text>
@@ -62,7 +59,6 @@ export function AppShellTemplate() {
                         workflows, and product-specific views.
                       </Text>
                     </Flex>
-                    {/* Placeholder content rows */}
                     <Flex direction="column" gap="300">
                       {Array.from({ length: 3 }).map((_, i) => (
                         <div key={i} className="template-skeleton-row" />
@@ -72,7 +68,6 @@ export function AppShellTemplate() {
                 </main>
               </FlexItem>
 
-              {/* Utility rail */}
               <FlexItem size={isTabletDown ? "full" : "minor"}>
                 <aside className="template-block">
                   <Flex direction="column" gap="400">

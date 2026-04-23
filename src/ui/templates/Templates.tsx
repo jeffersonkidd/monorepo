@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { Footer, Header } from "compositions";
 import { Section } from "layout";
-import { Button, ButtonGroup, Text, TextSmall, TextTitlePage } from "primitives";
+import {
+  Button,
+  ButtonGroup,
+  Text,
+  TextHeading,
+  TextSmall,
+  TextTitlePage,
+} from "primitives";
+import { useState } from "react";
 import { AppShellTemplate } from "./AppShellTemplate";
 import { AuthTemplate } from "./AuthTemplate";
+import { BlankTemplate } from "./BlankTemplate";
 import { MarketingTemplate } from "./MarketingTemplate";
 import "./templates.css";
 
 const templateOptions = [
+  {
+    id: "blank",
+    label: "Blank",
+    description:
+      "Bare page scaffolding — vertical column with main, plus optional Header/Footer slots.",
+  },
   {
     id: "app-shell",
     label: "App Shell",
@@ -28,7 +43,7 @@ type TemplateOptionId = (typeof templateOptions)[number]["id"];
 
 export function Templates() {
   const [activeTemplate, setActiveTemplate] =
-    useState<TemplateOptionId>("app-shell");
+    useState<TemplateOptionId>("blank");
 
   return (
     <div className="template-showcase-page">
@@ -60,6 +75,19 @@ export function Templates() {
       </Section>
 
       <div className="template-showcase-preview">
+        {activeTemplate === "blank" && (
+          <BlankTemplate header={<Header />} footer={<Footer />}>
+            <Section padding="1200">
+              <TextHeading>Blank template</TextHeading>
+              <Text>
+                The minimum scaffolding: a full-height column with a
+                flex-filling <code>&lt;main&gt;</code>. Drop in your own
+                sections, or omit the Header/Footer entirely for a true
+                empty canvas.
+              </Text>
+            </Section>
+          </BlankTemplate>
+        )}
         {activeTemplate === "auth" && <AuthTemplate />}
         {activeTemplate === "marketing" && <MarketingTemplate />}
         {activeTemplate === "app-shell" && <AppShellTemplate />}

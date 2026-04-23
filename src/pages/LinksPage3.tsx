@@ -59,7 +59,7 @@ const quickStats = [
   { label: "Brand partners", value: "28" },
 ];
 
-export function LinkInBio() {
+export function LinksPage() {
   const { isMobile } = useMediaQuery();
   const sectionPadding = isMobile ? "600" : "1600";
   const pageGap = isMobile ? "800" : "1200";
@@ -67,12 +67,12 @@ export function LinkInBio() {
   return (
 
     <Section padding={sectionPadding} variant="neutral">
-    <Flex
-      direction="column"
-      alignPrimary="center"
-      alignSecondary="center"
-      gap="1200"
-      container
+  <Flex
+    direction="column"
+    alignPrimary="center"
+    alignSecondary="center"
+    gap="1200"
+    container
     >
       <Flex
         direction="column"
@@ -104,43 +104,50 @@ export function LinkInBio() {
               style={{ minWidth: 0 }}
             >
               <Image
-                src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
-                alt="Profile Picture of Jefferson Kidd"
-                size="medium"
-                style={{ borderRadius: "100%" }}
+              src="https://media.gettyimages.com/id/93015397/photo/author-and-poet-chinua-achebe-poses-at-a-portrait-session-for-the-new-yorker-magazine-in.jpg?s=612x612&w=0&k=20&c=J_4rznU4jiEna5pf4HF7gIMT2EI4qivJuKEezEgpFPE=" 
+              alt="Author and poet Chinua Achebe poses at a portrait session for The New Yorker Magazine in Annandale On Hudson, NY on April 22, 2008"
+              size="medium"
+
               />
 
               <Flex
-                direction="column"
+                direction="row"
                 gap="600"
                 alignPrimary="center"
                 alignSecondary="center"
                 style={{ minWidth: 0 }}
+                container
               >
                 <Tag scheme="positive" variant="primary">
-                  New course live
+                  🤑 New course live
                 </Tag>
-
+                <Tag scheme="danger" variant="primary">
+                  😡 I don't eat @$$ on OnlyFans!!!
+                </Tag>
+              
                 <TextContentTitle
                   align="center"
-                  title="Jefferson Kidd"
+                  title="Monofly UI"
                   subtitle="Creative strategist sharing launch notes, studio workflows, and simple systems for independent brands."
                 />
               </Flex>
             </Flex>
 
             {/* Stats */}
-            <Flex type="third" gap="600" style={{ minWidth: 0 }}>
+            <Flex type="third" direction="row" gap="600" >
+   
               {quickStats.map((stat) => (
-                <FlexItem key={stat.label} size="fill" style={{ minWidth: 0 }}>
+                <FlexItem key={stat.label} size="minor" style={{ minWidth: 0 }}>
                   <Card variant="stroke" padding="600">
                     <Flex
                       direction="column"
+                      alignPrimary="center"
                       alignSecondary="center"
                       gap="100"
-                      style={{ minWidth: 0 }}
+                    
+                      container
                     >
-                      <TextSmall>{stat.label}</TextSmall>
+                      <TextSmall >{stat.label}</TextSmall>
                       <TextHeading>{stat.value}</TextHeading>
                     </Flex>
                   </Card>
@@ -155,9 +162,11 @@ export function LinkInBio() {
           direction="row"
           gap={pageGap}
           alignPrimary="stretch"
-          alignSecondary="center"
+          alignSecondary="stretch"
           container
-          style={{ minWidth: 0 }}
+          type="auto"
+          content=""
+          
         >
           <Card variant="stroke" padding="800" direction="vertical" style={{ minWidth: 0 }}>
             <Flex
@@ -245,8 +254,8 @@ export function LinkInBio() {
       </Flex>
 
         {/* Social */}
-        <Flex direction="column" gap="300" alignSecondary="center">
-          <ButtonGroup align="center">
+        <Flex direction="column" gap="300" alignSecondary="stretch">
+          <ButtonGroup align="justify">
             {socialLinks.map((link) => (
               <TagButton key={link.label} href={link.href}>
                 <Flex gap="100" alignSecondary="center">
@@ -257,7 +266,7 @@ export function LinkInBio() {
             ))}
           </ButtonGroup>
 
-          <TextSmall>hello@avamonroe.studio</TextSmall>
+          <TextSmall>hello@monofly.studio</TextSmall>
         </Flex>
       </Flex>
 

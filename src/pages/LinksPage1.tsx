@@ -60,23 +60,14 @@ const quickStats = [
   { label: "Brand partners", value: "28" },
 ];
 
-export function Demo() {
+export function LinksPage() {
   const { isMobile } = useMediaQuery();
   const sectionPadding = isMobile ? "600" : "1600";
   const pageGap = isMobile ? "800" : "1200";
 
   return (
     <Section padding={sectionPadding} variant="neutral">
-      <Flex
-        direction="column"
-        gap="800"
-        alignPrimary="center"
-        alignSecondary="center"
-        type="third"
-        style={{ minWidth: 0, maxWidth: "48rem" }}
-        container
-        wrap
-      >
+
         {/* Profile */}
         <Flex
           direction="column"
@@ -101,7 +92,9 @@ export function Demo() {
               <Image
                 src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
                 alt="Profile Picture of Jefferson Kidd"
-                size="large"
+                size={"medium"}
+                height={"full"}
+                aspectRatio="1-1"
                 style={{ borderRadius: "100%" }}
               />
 
@@ -145,7 +138,6 @@ export function Demo() {
               ))}
             </Flex>
           </Card>
-        </Flex>
 
         {/* Featured Links */}
         <Flex
@@ -257,5 +249,11 @@ export function Demo() {
         </Flex>
       </Flex>
     </Section>
-  );
+ 
+   );
 }
+
+
+
+
+

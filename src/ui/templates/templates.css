@@ -4,6 +4,14 @@
   min-height: 100vh;
 }
 
+/* Blank template — main fills available space so a trailing footer
+   sticks to the bottom even when content is short. */
+.template-main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
 /* Shared surface block — used for rail, main content area, and feature cards */
 .template-block {
   background: var(--sds-color-background-default-default);
@@ -16,15 +24,6 @@
   background: var(--sds-color-background-brand-default);
   border-color: var(--sds-color-border-brand-default);
   color: var(--sds-color-text-brand-on-brand);
-}
-
-/* Left rail within app shell */
-.template-rail {
-  position: sticky;
-  top: var(--sds-size-space-400);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sds-size-space-300);
 }
 
 /* Skeleton placeholder rows (app shell) */
