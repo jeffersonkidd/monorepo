@@ -1,11 +1,10 @@
 // AppShellTemplate.tsx
 import { Sidebar } from "compositions";
+import { useMediaQuery } from "hooks";
 import { Flex, FlexItem, Section } from "layout";
 import { Navigation, NavigationPill, TextHeading } from "primitives";
 import { ReactNode, useState } from "react";
 import "./templates.css";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface NavItem {
   label: string;
@@ -21,8 +20,6 @@ export interface AppShellTemplateProps {
   asideHeading?: string;
 }
 
-// ─── Template ─────────────────────────────────────────────────────────────────
-
 export function AppShellTemplate({
   brand,
   navItems,
@@ -32,31 +29,43 @@ export function AppShellTemplate({
   asideHeading = "Activity",
 }: AppShellTemplateProps) {
   const [activeKey, setActiveKey] = useState(navItems[0]?.key ?? "");
+  const { isTabletDown } = useMediaQuery();
 
   const handleNavChange = (key: string) => {
     setActiveKey(key);
     onNavChange?.(key);
   };
 
+  const nav = (
+    <Navigation direction="column">
+      {navItems.map((item) => (
+        <NavigationPill
+          key={item.key}
+          isSelected={activeKey === item.key}
+          onPress={() => handleNavChange(item.key)}
+        >
+          {item.label}
+        </NavigationPill>
+      ))}
+    </Navigation>
+  );
+
   return (
     <Section variant="neutral" padding="600">
+
+      {/* Mobile: trigger renders inline above content */}
+      {isTabletDown && (
+        <Sidebar brand={brand}>{nav}</Sidebar>
+      )}
+
       <Flex container gap="600" alignSecondary="start">
 
-        <FlexItem size="minor">
-          <Sidebar brand={brand}>
-            <Navigation direction="column">
-              {navItems.map((item) => (
-                <NavigationPill
-                  key={item.key}
-                  isSelected={activeKey === item.key}
-                  onPress={() => handleNavChange(item.key)}
-                >
-                  {item.label}
-                </NavigationPill>
-              ))}
-            </Navigation>
-          </Sidebar>
-        </FlexItem>
+        {/* Desktop: sidebar in the flex row */}
+        {!isTabletDown && (
+          <FlexItem size="minor">
+            <Sidebar brand={brand}>{nav}</Sidebar>
+          </FlexItem>
+        )}
 
         <FlexItem size="major">
           <Flex gap="600" alignSecondary="start">
