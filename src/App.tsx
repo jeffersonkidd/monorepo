@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { AppShellTemplate } from "Templates";
+import { AppShellTemplate } from "templates";
 
 function App() {
   return (
