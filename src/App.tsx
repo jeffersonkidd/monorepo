@@ -4,7 +4,7 @@ import { BlankPage } from "./pages/BlankPage"
 function App() {
   return (
     <AllProviders>
-        <BlankPage>
+        <BlankPage />
     </AllProviders>
   );
 }
