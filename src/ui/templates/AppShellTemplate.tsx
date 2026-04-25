@@ -32,22 +32,9 @@ export interface AppShellTemplateProps {
 }
 
 // ─── Template ─────────────────────────────────────────────────────────────────
-
-export function AppShellTemplate({
-  brand,
-  navItems,
-  onNavChange,
-  renderMain,
-  renderAside,
-  asideHeading = "Activity",
-}: AppShellTemplateProps) {
-  const [activeKey, setActiveKey] = useState(navItems[0]?.key ?? "");
+export function AppShellTemplate({ ... }: AppShellTemplateProps) {
   const { isTabletDown } = useMediaQuery();
-
-  const handleNavChange = (key: string) => {
-    setActiveKey(key);
-    onNavChange?.(key);
-  };
+  // ...
 
   const sidebar = (
     <Sidebar brand={brand}>
@@ -69,17 +56,15 @@ export function AppShellTemplate({
     <div className="template-page-root">
       <Section variant="neutral" padding="600">
         <Flex container gap="600" alignSecondary="start">
-          {!isTabletDown && <FlexItem size="minor">{sidebar}</FlexItem>}
+          {/* ✅ always render — Sidebar handles its own collapse */}
+          <FlexItem size="minor">{sidebar}</FlexItem>
 
           <FlexItem size="major">
             <Flex gap="600" wrap={isTabletDown} alignSecondary="start">
               <FlexItem size={isTabletDown ? "full" : "major"}>
-                <main
-                  className="template-block"
-                  aria-label="App shell primary content"
-                >
+                <main className="template-block" aria-label="App shell primary content">
                   <Flex direction="column" gap="600">
-                    {isTabletDown && sidebar}
+                    {/* ❌ remove this — Sidebar already renders its own trigger */}
                     {renderMain(activeKey)}
                   </Flex>
                 </main>
