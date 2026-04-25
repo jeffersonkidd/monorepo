@@ -39,7 +39,7 @@ export function AppShellTemplate() {
     <div className="template-page-root">
       <Header />
 
-      <Section variant="neutral" padding="800">
+      <Section variant="neutral" padding="600">
         <Flex container gap="600" alignSecondary="start">
           {!isTabletDown && <FlexItem size="minor">{sidebar}</FlexItem>}
 
