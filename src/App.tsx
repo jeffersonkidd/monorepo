@@ -1,7 +1,7 @@
 import { AllProviders } from "data";
 import { WorkspacePage } from "./pages/AppShellPage"
 
-function WorkspacePage() {
+function App() {
   return (
     <AllProviders>
         <WorkspacePage />
