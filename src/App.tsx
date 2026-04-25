@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { BlankPage } from "./pages/BlankPage"
+import { WorkspacePage } from "./pages/AppShellPage"
 
-function App() {
+function WorkspacePage() {
   return (
     <AllProviders>
-        <BlankPage />
+        <WorkspacePage />
     </AllProviders>
   );
 }
