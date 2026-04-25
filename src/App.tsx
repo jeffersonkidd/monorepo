@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { WorkspacePage } from "./pages/AppShellPage"
+import { WorkspacePage } from "./pages/WorkspacePage"
 
 function App() {
   return (
