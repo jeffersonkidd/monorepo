@@ -16,7 +16,7 @@ export function BlankPage() {
           <TextHeading>Overview</TextHeading>
           <Text>Welcome to your dashboard.</Text>
       </Flex>
-      </Center>
+      </Section>
         </BlankTemplate>
 
   );
