@@ -44,7 +44,7 @@ export function AppShellTemplate() {
           {!isTabletDown && <FlexItem size="minor">{sidebar}</FlexItem>}
 
           <FlexItem size="major">
-            <Flex gap="400" wrap={isTabletDown} alignSecondary="start">
+            <Flex gap="600" wrap={isTabletDown} alignSecondary="start">
               <FlexItem size={isTabletDown ? "full" : "major"}>
                 <main
                   className="template-block"
