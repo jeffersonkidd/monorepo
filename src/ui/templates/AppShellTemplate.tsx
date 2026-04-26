@@ -1,101 +1,91 @@
-// AppShellTemplate.tsx
-import { Sidebar } from "compositions";
-import { useMediaQuery } from "hooks";
-import { Flex, FlexItem, Section } from "layout";
-import { Navigation, NavigationPill, TextHeading } from "primitives";
-import { ReactNode, useState } from "react";
-import "./templates.css";
+/**
+ * AppShell.tsx
+ *
+ * Correct app-shell template wired to <Sidebar>.
+ * Drop your routes / page content into <AppShell> and swap the
+ * placeholder brand / nav / footer slots for your real primitives.
+ *
+ * Layout anatomy
+ * ─────────────────────────────────────────────────────────
+ *  ┌──────────┬────────────────────────────────────────────┐
+ *  │          │  <header>  topbar                          │
+ *  │ Sidebar  ├────────────────────────────────────────────┤
+ *  │  (rail)  │                                            │
+ *  │          │  <main>  page content                      │
+ *  │          │                                            │
+ *  └──────────┴────────────────────────────────────────────┘
+ *
+ *  On mobile the sidebar collapses; the trigger button it renders
+ *  is hoisted into the topbar via the `mobileTrigger` ref/slot pattern.
+ */
 
-export interface NavItem {
-  label: string;
-  key: string;
-}
+import clsx from "clsx";
+import { ReactNode } from "react";
+import { Sidebar } from "./sidebars";
+import "./app-shell.css";
 
-export interface AppShellTemplateProps {
+// ─── Slot types ──────────────────────────────────────────────────────────────
+
+export type AppShellProps = {
+  /** Logo / wordmark area rendered at the top of the sidebar rail. */
   brand?: ReactNode;
-  navItems: NavItem[];
-  onNavChange?: (key: string) => void;
-  renderMain: (activeKey: string) => ReactNode;
-  renderAside?: (activeKey: string) => ReactNode;
-  asideHeading?: string;
-}
+  /**
+   * Primary navigation. Wrap <NavItem> / <Navigation> in column direction.
+   * Passed straight through as Sidebar children.
+   */
+  nav?: ReactNode;
+  /** Utility items pinned to the sidebar bottom (settings, avatar, etc.). */
+  sidebarFooter?: ReactNode;
+  /** Content rendered inside the top bar (search, actions, breadcrumb…). */
+  topbar?: ReactNode;
+  /** Page content — swap for <Outlet /> when using React Router / TanStack. */
+  children?: ReactNode;
+  className?: string;
+};
 
-export function AppShellTemplate({
+// ─── Shell ───────────────────────────────────────────────────────────────────
+
+export function AppShell({
   brand,
-  navItems,
-  onNavChange,
-  renderMain,
-  renderAside,
-  asideHeading = "Activity",
-}: AppShellTemplateProps) {
-  const [activeKey, setActiveKey] = useState(navItems[0]?.key ?? "");
-  const { isTabletDown } = useMediaQuery();
-
-  const handleNavChange = (key: string) => {
-    setActiveKey(key);
-    onNavChange?.(key);
-  };
-
-  const nav = (
-    <Navigation direction="column">
-      {navItems.map((item) => (
-        <NavigationPill
-          key={item.key}
-          isSelected={activeKey === item.key}
-          onPress={() => handleNavChange(item.key)}
-        >
-          {item.label}
-        </NavigationPill>
-      ))}
-    </Navigation>
-  );
-
+  nav,
+  sidebarFooter,
+  topbar,
+  children,
+  className,
+}: AppShellProps) {
   return (
-    <Section variant="neutral" padding="600">
+    <div className={clsx("app-shell", className)}>
+      {/*
+       * Sidebar
+       * – renders as a sticky <aside> on desktop
+       * – collapses to a DialogModal drawer on mobile and injects
+       *   its own trigger button (the trigger floats in the topbar
+       *   via CSS absolute positioning; see app-shell.css)
+       */}
+      <Sidebar
+        brand={brand}
+        footer={sidebarFooter}
+        triggerLabel="Open navigation"
+      >
+        {nav}
+      </Sidebar>
 
-      {/* Mobile: trigger renders inline above content */}
-      {isTabletDown && (
-        <Sidebar brand={brand}>{nav}</Sidebar>
-      )}
+      {/* Right-hand column: topbar + scrollable content */}
+      <div className="app-shell-body">
+        <header className="app-shell-topbar">
+          {/*
+           * On mobile the sidebar-trigger button is rendered by <Sidebar>
+           * and positioned with CSS into this topbar region.
+           * Reserve the left slot for it; your topbar content follows.
+           */}
+          <div className="app-shell-topbar-start" aria-hidden />
+          <div className="app-shell-topbar-content">{topbar}</div>
+        </header>
 
-      <Flex container gap="600" alignSecondary="start">
-
-        {/* Desktop: sidebar in the flex row */}
-        {!isTabletDown && (
-          <FlexItem size="minor">
-            <Sidebar brand={brand}>{nav}</Sidebar>
-          </FlexItem>
-        )}
-
-        <FlexItem size="major">
-          <Flex gap="600" alignSecondary="start">
-
-            <FlexItem size="major">
-              <main
-                className="template-block"
-                aria-label="App shell primary content"
-              >
-                <Flex direction="column" gap="600">
-                  {renderMain(activeKey)}
-                </Flex>
-              </main>
-            </FlexItem>
-
-            {renderAside && (
-              <FlexItem size="minor">
-                <aside className="template-block">
-                  <Flex direction="column" gap="400">
-                    <TextHeading>{asideHeading}</TextHeading>
-                    {renderAside(activeKey)}
-                  </Flex>
-                </aside>
-              </FlexItem>
-            )}
-
-          </Flex>
-        </FlexItem>
-
-      </Flex>
-    </Section>
+        <main className="app-shell-main" id="main-content" tabIndex={-1}>
+          {children}
+        </main>
+      </div>
+    </div>
   );
 }
