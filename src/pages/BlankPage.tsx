@@ -1,6 +1,6 @@
 import { BlankTemplate } from "templates";
 import { Header, Footer } from "compositions";
-import { WelcomeHero } from "/examples/WelcomeHero";
+import { WelcomeHero } from "examples/WelcomeHero";
 
 export function BlankPage() {
   return (
