@@ -6,7 +6,6 @@ import {
   NavigationPill,
   TextStrong,
 } from "primitives";
-import "./templates.css";
 import { Flex } from "layout";
 import { Text, TextHeading, TextSmall } from "primitives";
 import { useState } from "react";
