@@ -21,8 +21,8 @@
 
 import clsx from "clsx";
 import { ReactNode } from "react";
-import { Sidebar } from "./sidebars";
-import "./app-shell.css";
+import { Sidebar } from "compositions";
+import "./templates.css";
 
 // ─── Slot types ──────────────────────────────────────────────────────────────
 
@@ -38,7 +38,7 @@ export type AppShellProps = {
   sidebarFooter?: ReactNode;
   /** Content rendered inside the top bar (search, actions, breadcrumb…). */
   topbar?: ReactNode;
-  /** Page content — swap for <Outlet /> when using React Router / TanStack. */
+  /** Page content — whatever you render as the current view. */
   children?: ReactNode;
   className?: string;
 };
