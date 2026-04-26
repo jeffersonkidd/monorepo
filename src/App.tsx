@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { AuthTemplate } from "templates";
+import { Templates } from "templates";
 
 function App() {
   return (
     <AllProviders>
-      <AuthTemplate />
+      <Templates />
     </AllProviders>
   );
 }
