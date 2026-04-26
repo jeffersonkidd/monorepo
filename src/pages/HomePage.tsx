@@ -1,11 +1,11 @@
 
-import { WelcomeHero } from "../examples/WelcomeHero";
-import { PanelSections } from "../examples/PanelSections";
-import { Demo } from "../examples/Demo";
+import { WelcomeHero } from "examples";
+import { PanelSections } from "examples";
+import { Demo } from "examples";
 import { Header, Footer } from "compositions";
-import { ProductDetails } from "../examples/ProductDetails"; 
-import { PricingGrid } from "../examples/PricingGrid";
-import { ProductGrid } from "../examples/ProductGrid";
+import { ProductDetails } from "examples"; 
+import { PricingGrid } from "examples";
+import { ProductGrid } from "examples";
 
 export function HomePage() {
   return (
