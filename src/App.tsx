@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { BlankPage } from "./pages/BlankPage";
+import { MarketingTemplate } from "templates";;
 
 function App() {
   return (
