@@ -10,7 +10,7 @@ import "./templates.css";
 import { Flex } from "layout";
 import { Text, TextHeading, TextSmall } from "primitives";
 import { useState } from "react";
-import { AppShellTemplate, NavItem } from "./AppShellTemplate";
+import { AppShellTemplate, NavItem } from "templates";
 
 export function AppShellPage() {
   const [activePage, setActivePage] = useState<NavItem>("Overview");
