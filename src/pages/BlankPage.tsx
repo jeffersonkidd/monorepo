@@ -13,12 +13,6 @@ export function BlankPage() {
       mainProps={{ "aria-label": "Dashboard content" }}
     >
       <WelcomeHero />
-      <Section padding="600" variant="brand">
-        <Flex direction="column" alignSecondary="center">
-          <TextHeading>Overview</TextHeading>
-          <Text>Welcome to your dashboard.</Text>
-        </Flex>
-      </Section>
     </BlankTemplate>
   );
 }
