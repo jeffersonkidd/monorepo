@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { AppShellTemplate } from "templates";
+import { OverviewPage } from "pages/OverviewPage.tsx";
 
 function App() {
   return (
     <AllProviders>
-      <AppShellTemplate />
+      <OverviewPage />
     </AllProviders>
   );
 }
