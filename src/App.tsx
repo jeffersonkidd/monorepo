@@ -4,7 +4,7 @@ import LinksPage from "./pages/LinksPage3";
 function App() {
   return (
     <AllProviders>
-      <LinksPage3 />
+      <LinksPage />
     </AllProviders>
   );
 }
