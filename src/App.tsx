@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { Templates } from "templates";
+import { BlankTemplate } from "templates";
 
 function App() {
   return (
     <AllProviders>
-      <Templates />
+      <BlankTemplate />
     </AllProviders>
   );
 }
