@@ -1,4 +1,4 @@
-export * from "./AppShellTemplate";
+
 export * from "./AuthTemplate";
 export * from "./BlankTemplate";
 export * from "./MarketingTemplate";
