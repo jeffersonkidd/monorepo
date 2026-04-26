@@ -1,15 +1,15 @@
 
 import { AppShell } from "templates";
-import { Navigation, NavItem } from "primitives";
+import { Navigation, NavItem, Logo } from "primitives";
 
- export function AppPage() {
-    return (
-      <AppShell
-        brand={<p>Brand</p>}
-        nav={
-          <Navigation direction="column">
+ export function WorkspacePage() {
+   return (
+     <AppShell
+       brand={<Logo />}
+       nav={
+         <Navigation direction="column">
             <NavItem href="/"        icon={<IconHome />}     label="Home"     />
-            <NavItem href="/projects" icon={<IconFolder />}  label="Projects" />
+           <NavItem href="/projects" icon={<IconFolder />}  label="Projects" />
             <NavItem href="/docs"    icon={<IconBook />}     label="Docs"     />
           </Navigation>
         }
@@ -26,7 +26,7 @@ import { Navigation, NavItem } from "primitives";
           </>
         }
       >
-
+        <HomePage />
       </AppShell>
     );
   }
