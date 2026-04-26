@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { OverviewPage } from "./pages/OverviewPage";
+import { AppShellTemplate } from "templates";
 
 function App() {
   return (
     <AllProviders>
-      <OverviewPage />
+      <AppShellTemplate />
     </AllProviders>
   );
 }
