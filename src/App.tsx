@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { LinksPage } from "/pages/LinksPage"
+import { HomePage } from "./pages/HomePage"
 
 function App() {
   return (
     <AllProviders>
-        <LinksPage />
+        <HomePage />
     </AllProviders>
   );
 }
