@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { BlankPage } from "pages";
+import { BlankPage } from "/pages/BlankPage";
 
 function App() {
   return (
