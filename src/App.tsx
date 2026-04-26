@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { LinksPage } from "./pages/LinksPage"
+import { LinksPage } from "/pages/LinksPage"
 
 function App() {
   return (
