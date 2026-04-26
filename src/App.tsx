@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { WorkspacePage } from "./pages/WorkspacePage"
+import { HomePage } from "./pages/HomePage"
 
 function App() {
   return (
     <AllProviders>
-        <WorkspacePage />
+        <HomePage />
     </AllProviders>
   );
 }
