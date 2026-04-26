@@ -1,15 +1,7 @@
-import { Footer, Header, Sidebar } from "compositions";
-import { useMediaQuery } from "hooks";
-import { Flex, FlexItem, Section } from "layout";
-import {
-  Navigation,
-  NavigationPill,
-  TextStrong,
-} from "primitives";
 import { Flex } from "layout";
 import { Text, TextHeading, TextSmall } from "primitives";
 import { useState } from "react";
-import { AppShellTemplate, NavItem } from "templates";
+import { AppShellTemplate, NavItem } from "./AppShellTemplate";
 
 export function AppShellPage() {
   const [activePage, setActivePage] = useState<NavItem>("Overview");
