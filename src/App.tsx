@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { MarketingTemplate } from "Templates";
+import { MarketingTemplate } from "templates";
 
 function App() {
   return (
