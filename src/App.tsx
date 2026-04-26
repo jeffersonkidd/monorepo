@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { AppShellTemplate } from "templates";
+import { MarketingTemplate } from "templates";
 
 function App() {
   return (
     <AllProviders>
-      <AppShellTemplate />
+      <MarketingTemplate />
     </AllProviders>
   );
 }
