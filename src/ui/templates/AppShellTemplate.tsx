@@ -1,4 +1,4 @@
-split this into a page and a template
+
 import { Footer, Header, Sidebar } from “compositions”;
 import { useMediaQuery } from “hooks”;
 import { Flex, FlexItem, Section } from “layout”;
