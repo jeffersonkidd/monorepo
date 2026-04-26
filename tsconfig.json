@@ -20,8 +20,6 @@
     "paths": {
       "compositions": ["./ui/compositions"],
       "data": ["./data"],
-      "examples": ["./examples"],
-      "pages": ["./pages"],
       "hooks": ["./ui/hooks"],
       "icons": ["./ui/icons"],
       "images": ["./ui/images"],
