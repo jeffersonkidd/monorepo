@@ -1,7 +1,0 @@
-export * from "./Demo"
-export * from "./FAQ"
-export * from "./PricingGrid"
-export * from "./PanelSection"
-export * from "./ProductGrid"
-export * from "./ProductDetails"
-export * from "./WelcomeHero"
