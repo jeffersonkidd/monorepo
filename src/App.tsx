@@ -4,7 +4,7 @@ import { MarketingTemplate } from "templates";;
 function App() {
   return (
     <AllProviders>
-      <BlankPage />
+      <MarketingTemplate />
     </AllProviders>
   );
 }
