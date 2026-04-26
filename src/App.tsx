@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { MarketingTemplate } from "templates";
+import { BlankPage } from "pages/BlankPage";
 
 function App() {
   return (
     <AllProviders>
-      <MarketingTemplate />
+      <BlankPage />
     </AllProviders>
   );
 }
