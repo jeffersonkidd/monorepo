@@ -1,7 +1,7 @@
 import { BlankTemplate } from "templates";
 import { Header, Footer } from "compositions";
 import { TextHeading, Text } from "primitives";
-import { Stack, Grid, Flex, Box, Container, Section } from "layout";
+import { Flex, Container, Section } from "layout";
 
 export function BlankPage() {
   return (
