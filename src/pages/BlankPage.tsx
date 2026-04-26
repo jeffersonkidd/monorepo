@@ -2,6 +2,7 @@ import { BlankTemplate } from "templates";
 import { Header, Footer } from "compositions";
 import { TextHeading, Text } from "primitives";
 import { Flex,Section } from "layout";
+import { WelcomeHero } from "examples/WelcomeHero";
 
 export function BlankPage() {
   return (
@@ -11,6 +12,7 @@ export function BlankPage() {
       id="dashboard-page"
       mainProps={{ "aria-label": "Dashboard content" }}
     >
+      <WelcomeHero />
       <Section padding="600" variant="brand">
         <Flex direction="column" alignSecondary="center">
           <TextHeading>Overview</TextHeading>
