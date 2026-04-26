@@ -26,7 +26,7 @@ import { Navigation, NavItem } from "primitives";
           </>
         }
       >
-        <Outlet />   // ← React Router / TanStack Router outlet
+
       </AppShell>
     );
   }
