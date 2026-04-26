@@ -1,10 +1,10 @@
 import { AllProviders } from "data";
-import { LinksPage1 } from "pages";
+import { BlankPage } from "pages";
 
 function App() {
   return (
     <AllProviders>
-      <LinksPage1 />
+      <BlankPage />
     </AllProviders>
   );
 }
