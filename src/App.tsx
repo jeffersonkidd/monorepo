@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { HomePage } from "/pages/HomePage";
+import { HomePage } from "pages";
 
 function App() {
   return (
