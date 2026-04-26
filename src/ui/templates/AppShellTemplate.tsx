@@ -4,19 +4,26 @@ import { Flex, FlexItem, Section } from "layout";
 import {
   Navigation,
   NavigationPill,
-  Text,
-  TextHeading,
-  TextSmall,
   TextStrong,
 } from "primitives";
-import { useState } from "react";
 import "./templates.css";
 
 const NAV_ITEMS = ["Overview", "Projects", "Activity", "Settings"] as const;
-type NavItem = (typeof NAV_ITEMS)[number];
+export type NavItem = (typeof NAV_ITEMS)[number];
 
-export function AppShellTemplate() {
-  const [activePage, setActivePage] = useState<NavItem>("Overview");
+interface AppShellTemplateProps {
+  activePage: NavItem;
+  onNavigate: (item: NavItem) => void;
+  main: React.ReactNode;
+  aside: React.ReactNode;
+}
+
+export function AppShellTemplate({
+  activePage,
+  onNavigate,
+  main,
+  aside,
+}: AppShellTemplateProps) {
   const { isTabletDown } = useMediaQuery();
 
   const sidebar = (
@@ -26,7 +33,7 @@ export function AppShellTemplate() {
           <NavigationPill
             key={item}
             isSelected={activePage === item}
-            onPress={() => setActivePage(item)}
+            onPress={() => onNavigate(item)}
           >
             {item}
           </NavigationPill>
@@ -52,35 +59,13 @@ export function AppShellTemplate() {
                 >
                   <Flex direction="column" gap="600">
                     {isTabletDown && sidebar}
-                    <Flex direction="column" gap="200">
-                      <TextHeading>{activePage}</TextHeading>
-                      <Text>
-                        Use this region for dashboard cards, data tables,
-                        workflows, and product-specific views.
-                      </Text>
-                    </Flex>
-                    <Flex direction="column" gap="300">
-                      {Array.from({ length: 3 }).map((_, i) => (
-                        <div key={i} className="template-skeleton-row" />
-                      ))}
-                    </Flex>
+                    {main}
                   </Flex>
                 </main>
               </FlexItem>
 
               <FlexItem size={isTabletDown ? "full" : "minor"}>
-                <aside className="template-block">
-                  <Flex direction="column" gap="400">
-                    <TextHeading>Activity</TextHeading>
-                    <TextSmall>
-                      Add contextual activity, alerts, assignees, and pinned
-                      links here.
-                    </TextSmall>
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <div key={i} className="template-skeleton-row" />
-                    ))}
-                  </Flex>
-                </aside>
+                <aside className="template-block">{aside}</aside>
               </FlexItem>
             </Flex>
           </FlexItem>
