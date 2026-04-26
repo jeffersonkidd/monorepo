@@ -1,5 +1,5 @@
 import { AllProviders } from "data";
-import { AppShellPage } from "./pages/AppShellPage";
+import { AppShellPage } "/pages/AppShellPage";
 
 function App() {
   return (
